@@ -1,0 +1,125 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.35.0 (HEAD)
+  labels:
+    io.kompose.service: backend
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: backend
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.35.0 (HEAD)
+      labels:
+        io.kompose.service: backend
+    spec:
+      containers:
+        - env:
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_HOST
+                  name: backend-env
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_NAME
+                  name: backend-env
+            - name: DB_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_PASSWORD
+                  name: backend-env
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_PORT
+                  name: backend-env
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_USER
+                  name: backend-env
+            - name: EMAIL_PASS
+              valueFrom:
+                configMapKeyRef:
+                  key: EMAIL_PASS
+                  name: backend-env
+            - name: EMAIL_USER
+              valueFrom:
+                configMapKeyRef:
+                  key: EMAIL_USER
+                  name: backend-env
+            - name: MAIL_FROM
+              valueFrom:
+                configMapKeyRef:
+                  key: MAIL_FROM
+                  name: backend-env
+            - name: MAIL_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: MAIL_PASSWORD
+                  name: backend-env
+            - name: MAIL_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: MAIL_PORT
+                  name: backend-env
+            - name: MAIL_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  key: MAIL_SERVER
+                  name: backend-env
+            - name: MAIL_SSL_TLS
+              valueFrom:
+                configMapKeyRef:
+                  key: MAIL_SSL_TLS
+                  name: backend-env
+            - name: MAIL_STARTTLS
+              valueFrom:
+                configMapKeyRef:
+                  key: MAIL_STARTTLS
+                  name: backend-env
+            - name: MAIL_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  key: MAIL_USERNAME
+                  name: backend-env
+            - name: RESET_PASSWORD_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: RESET_PASSWORD_URL
+                  name: backend-env
+            - name: SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: SECRET_KEY
+                  name: backend-env
+            - name: SMTP_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: SMTP_PORT
+                  name: backend-env
+            - name: SMTP_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  key: SMTP_SERVER
+                  name: backend-env
+            - name: TO_RECRUITING_EMAIL
+              valueFrom:
+                configMapKeyRef:
+                  key: TO_RECRUITING_EMAIL
+                  name: backend-env
+          image: remote123/whiteboxlearning:git-cicd-backend2
+          name: backend
+          ports:
+            - containerPort: 8000
+              protocol: TCP
+      restartPolicy: Always
